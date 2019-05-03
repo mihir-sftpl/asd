@@ -1,0 +1,33 @@
+version: '2'
+services:
+  gateway:
+    image: gateway
+    ports:
+    - 8887:8887
+    environment:
+      eureka.client.enabled: 'true'
+      eureka.host: discovery
+      eureka.instance.preferIpAddress: 'true'
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8888/eureka
+  discovery:
+    image: discovery
+    ports:
+    - 8888:8888
+  bookstore:
+    image: bookstore
+    ports:
+    - 8889:8889
+    environment:
+      eureka.client.enabled: 'true'
+      eureka.host: discovery
+      eureka.instance.preferIpAddress: 'true'
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8888/eureka
+  moviestore:
+      image: moviestore
+      ports:
+      - 8890:8890
+      environment:
+        eureka.client.enabled: 'true'
+        eureka.host: discovery
+        eureka.instance.preferIpAddress: 'true'
+        EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery:8888/eureka
